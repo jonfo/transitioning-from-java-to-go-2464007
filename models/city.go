@@ -8,8 +8,10 @@ var (
 )
 
 type city struct {
-	name  string
-	tempC float64 // temperature in Celsius
+	name        string
+	tempC       float64 // temperature in Celsius
+	beachReady  bool
+	hasMountain bool
 }
 
 // CityTemp interface defines all things city temperature related
@@ -27,8 +29,10 @@ type CityTemp interface {
 func NewCity(n string, t float64, hasBeach bool, hasMountain bool) CityTemp {
 	// MAKE ME COMPILE!
 	return &city{
-		name:  n,
-		tempC: t,
+		name:        n,
+		tempC:       t,
+		beachReady:  hasBeach,
+		hasMountain: hasMountain,
 	}
 }
 
@@ -45,4 +49,14 @@ func (c city) TempC() float64 {
 // TempF returns the city temperature converted to Fahrenheit
 func (c city) TempF() float64 {
 	return (c.tempC * 9 / 5) + 32
+}
+
+// beachVacationReady returns whether the city is ready for a beach vacation
+func (c city) BeachVacationReady() bool {
+	return (c.tempC >= beachVacationThreshold)
+}
+
+// hasMountainReady returns whether the city is ready for a beach vacation
+func (c city) SkiVacationReady() bool {
+	return (c.tempC <= skiVacationThreshold)
 }
